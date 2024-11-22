@@ -98,6 +98,11 @@ local function execute_grpcurl(command)
     vim.cmd("new")
     local buffer = vim.api.nvim_get_current_buf()
 
+		-- Set the buffer as scratch
+		vim.bo[buffer].buftype = "nofile"
+		vim.bo[buffer].swapfile = false
+		vim.bo[buffer].bufhidden = "wipe" -- Delete the buffer when the window is closed
+
     if success then
       vim.api.nvim_buf_set_lines(buffer, 0, -1, false, vim.split(result, "\n"))
     else
